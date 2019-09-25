@@ -281,37 +281,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main Page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXS-4Q-H3L">
-                                <rect key="frame" x="167" y="437.5" width="80" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTU-Ld-Tqw">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTU-Ld-Tqw">
                                 <rect key="frame" x="338" y="44" width="57" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Sign out"/>
                                 <connections>
                                     <action selector="signOutTapped:" destination="C8i-Ot-5mk" eventType="touchUpInside" id="6UU-da-G3k"/>
                                 </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fOg-Gq-U8f">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <outlet property="delegate" destination="C8i-Ot-5mk" id="7yQ-6x-SRp"/>
+                                </connections>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xXS-4Q-H3L" firstAttribute="centerX" secondItem="b5O-J4-5b8" secondAttribute="centerX" id="3LE-fm-Vpy"/>
-                            <constraint firstItem="XTU-Ld-Tqw" firstAttribute="top" secondItem="ZNJ-75-pSC" secondAttribute="top" id="CwU-Q6-eXb"/>
-                            <constraint firstItem="xXS-4Q-H3L" firstAttribute="centerY" secondItem="b5O-J4-5b8" secondAttribute="centerY" id="jMf-U9-tJQ"/>
-                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="XTU-Ld-Tqw" secondAttribute="trailing" constant="20" id="zJI-fR-1We"/>
+                            <constraint firstAttribute="trailing" secondItem="fOg-Gq-U8f" secondAttribute="trailing" id="FHK-c2-6QK"/>
+                            <constraint firstItem="fOg-Gq-U8f" firstAttribute="leading" secondItem="b5O-J4-5b8" secondAttribute="leading" id="Tin-mP-2VE"/>
+                            <constraint firstAttribute="bottom" secondItem="fOg-Gq-U8f" secondAttribute="bottom" id="XNw-0x-KDK"/>
+                            <constraint firstItem="fOg-Gq-U8f" firstAttribute="top" secondItem="b5O-J4-5b8" secondAttribute="top" id="zbx-xd-tnc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZNJ-75-pSC"/>
                     </view>
                     <connections>
+                        <outlet property="mapView" destination="fOg-Gq-U8f" id="hWA-Ju-xYa"/>
                         <outlet property="signOutButton" destination="XTU-Ld-Tqw" id="GQx-t1-h3e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Jf-5q-1PI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3438" y="783"/>
+            <point key="canvasLocation" x="3300" y="380"/>
         </scene>
         <!--Driver Sign Up View Controller-->
         <scene sceneID="BCF-Ma-E7t">
