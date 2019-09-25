@@ -11,10 +11,14 @@ import FirebaseAuth
 import Firebase
 import FirebaseFirestore
 
-class SignUpViewController: UIViewController {
+class NonDriverSignUpViewController: UIViewController {
     
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var SJSUIDTextField: UITextField!
+    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var zipCodeTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
@@ -33,6 +37,10 @@ class SignUpViewController: UIViewController {
         //style the elements
         Utilities.styleTextField(firstNameTextField)
         Utilities.styleTextField(lastNameTextField)
+        Utilities.styleTextField(SJSUIDTextField)
+        Utilities.styleTextField(addressTextField)
+        Utilities.styleTextField(cityTextField)
+        Utilities.styleTextField(zipCodeTextField)
         Utilities.styleTextField(emailTextField)
         Utilities.styleTextField(passwordTextField)
         Utilities.styleFilledButton(signUpButton)
@@ -45,6 +53,10 @@ class SignUpViewController: UIViewController {
         //check that all fields are filled in
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            SJSUIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            addressTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            zipCodeTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
             return "Please, fill in all fields"
@@ -69,6 +81,10 @@ class SignUpViewController: UIViewController {
             //create cleaned version of the data
             let firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let SJSUID = SJSUIDTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let address = addressTextField.text!
+            let city = cityTextField.text!
+            let zipcode = zipCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
@@ -82,7 +98,7 @@ class SignUpViewController: UIViewController {
                 } else {
                     //User was created
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["first_name": firstName, "last_name": lastName, "uid": result!.user.uid]) { (error) in
+                    db.collection("users").addDocument(data: ["first_name": firstName, "last_name": lastName, "SJSUID": SJSUID, "address": address, "city": city, "zipcode": zipcode, "uid": result!.user.uid]) { (error) in
                         if error != nil {
                             
                             //show error

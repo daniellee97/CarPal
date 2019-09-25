@@ -20,9 +20,11 @@
 		834DF94823304805002F0B4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834DF94623304805002F0B4C /* LaunchScreen.storyboard */; };
 		834DF95323304805002F0B4C /* CarPalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834DF95223304805002F0B4C /* CarPalTests.swift */; };
 		834DF95E23304805002F0B4C /* CarPalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834DF95D23304805002F0B4C /* CarPalUITests.swift */; };
-		834DF96C233048DC002F0B4C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834DF96B233048DC002F0B4C /* SignUpViewController.swift */; };
 		834DF96E233048EA002F0B4C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834DF96D233048EA002F0B4C /* HomeViewController.swift */; };
 		834DF97123305E61002F0B4C /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834DF97023305E61002F0B4C /* SignInViewController.swift */; };
+		837321072337497D005CFBF6 /* NonDriverSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837321062337497D005CFBF6 /* NonDriverSignUpViewController.swift */; };
+		8373210923374ECA005CFBF6 /* DriverSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373210823374ECA005CFBF6 /* DriverSignUpViewController.swift */; };
+		837321132338CD72005CFBF6 /* SignUpOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837321122338CD72005CFBF6 /* SignUpOptionViewController.swift */; };
 		83CA66F423308675004A2DD4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA66F323308675004A2DD4 /* Utilities.swift */; };
 		83DEDA3E2330C86900246603 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83DEDA3D2330C86900246603 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -66,9 +68,11 @@
 		834DF95923304805002F0B4C /* CarPalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarPalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		834DF95D23304805002F0B4C /* CarPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPalUITests.swift; sourceTree = "<group>"; };
 		834DF95F23304805002F0B4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		834DF96B233048DC002F0B4C /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		834DF96D233048EA002F0B4C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		834DF97023305E61002F0B4C /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		837321062337497D005CFBF6 /* NonDriverSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonDriverSignUpViewController.swift; sourceTree = "<group>"; };
+		8373210823374ECA005CFBF6 /* DriverSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSignUpViewController.swift; sourceTree = "<group>"; };
+		837321122338CD72005CFBF6 /* SignUpOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOptionViewController.swift; sourceTree = "<group>"; };
 		83CA66F323308675004A2DD4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		83DEDA3D2330C86900246603 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9CA0FC9BAC2CF2CE811F841F /* Pods-CarPal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarPal.release.xcconfig"; path = "Target Support Files/Pods-CarPal/Pods-CarPal.release.xcconfig"; sourceTree = "<group>"; };
@@ -183,9 +187,11 @@
 			isa = PBXGroup;
 			children = (
 				834DF93C23304804002F0B4C /* ViewController.swift */,
-				834DF96B233048DC002F0B4C /* SignUpViewController.swift */,
 				834DF97023305E61002F0B4C /* SignInViewController.swift */,
 				834DF96D233048EA002F0B4C /* HomeViewController.swift */,
+				837321062337497D005CFBF6 /* NonDriverSignUpViewController.swift */,
+				8373210823374ECA005CFBF6 /* DriverSignUpViewController.swift */,
+				837321122338CD72005CFBF6 /* SignUpOptionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -446,11 +452,13 @@
 			files = (
 				834DF96E233048EA002F0B4C /* HomeViewController.swift in Sources */,
 				834DF93D23304804002F0B4C /* ViewController.swift in Sources */,
+				837321072337497D005CFBF6 /* NonDriverSignUpViewController.swift in Sources */,
 				83CA66F423308675004A2DD4 /* Utilities.swift in Sources */,
 				834DF97123305E61002F0B4C /* SignInViewController.swift in Sources */,
 				834DF93B23304804002F0B4C /* AppDelegate.swift in Sources */,
-				834DF96C233048DC002F0B4C /* SignUpViewController.swift in Sources */,
 				834DF94323304804002F0B4C /* CarPal.xcdatamodeld in Sources */,
+				8373210923374ECA005CFBF6 /* DriverSignUpViewController.swift in Sources */,
+				837321132338CD72005CFBF6 /* SignUpOptionViewController.swift in Sources */,
 				834BAD902331C7810006BC23 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
