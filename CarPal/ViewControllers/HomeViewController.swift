@@ -18,6 +18,7 @@ class HomeViewController: UIViewController{
     
     // location manager constant
     let locationManager = CLLocationManager()
+    let regionInMeter: Double = 10000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,10 +58,20 @@ class HomeViewController: UIViewController{
         }
     }
     
+    func centerViewOnUserLocation () {
+        if let location = locationManager.location?.coordinate{
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeter, longitudinalMeters: regionInMeter)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
     // check location authorization
     private func checkLocationAutorization() {
         switch CLLocationManager.authorizationStatus(){
         case .authorizedWhenInUse:
+            mapView.showsUserLocation = true
+            centerViewOnUserLocation()
+            locationManager.startUpdatingLocation()
             break
         case .denied:
             break
@@ -77,11 +88,14 @@ class HomeViewController: UIViewController{
 
 extension HomeViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+        guard let location = locations.last else{ return }
+        let center = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeter, longitudinalMeters: regionInMeter)
+        mapView.setRegion(region, animated: true)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
+        checkLocationAutorization()
     }
     
     
