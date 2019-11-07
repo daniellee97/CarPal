@@ -98,5 +98,4 @@ extension HomeViewController: CLLocationManagerDelegate{
         checkLocationAutorization()
     }
     
-    
 }
