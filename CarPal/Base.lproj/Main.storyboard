@@ -3,7 +3,7 @@
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -306,7 +306,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fOg-Gq-U8f">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <connections>
                                     <outlet property="delegate" destination="C8i-Ot-5mk" id="7yQ-6x-SRp"/>
                                 </connections>
@@ -320,24 +320,61 @@
                                     <action selector="signOutTapped:" destination="C8i-Ot-5mk" eventType="touchUpInside" id="6UU-da-G3k"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wtc-hU-TQi">
+                                <rect key="frame" x="40" y="742" width="334" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="41o-uW-vcp"/>
+                                </constraints>
+                                <state key="normal" title="Match"/>
+                                <connections>
+                                    <action selector="matchButtonTapped:" destination="C8i-Ot-5mk" eventType="touchUpInside" id="xNM-bb-LEn"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="a0O-Rd-4vG">
+                                <rect key="frame" x="187" y="408" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="qBQ-su-aEL"/>
+                                    <constraint firstAttribute="height" constant="40" id="tcP-nc-c1R"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8j-aj-nXB">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="f5K-2s-ovM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="bottom" secondItem="fOg-Gq-U8f" secondAttribute="bottom" id="BcD-3g-0H7"/>
                             <constraint firstAttribute="trailing" secondItem="fOg-Gq-U8f" secondAttribute="trailing" id="FHK-c2-6QK"/>
+                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="Wtc-hU-TQi" secondAttribute="trailing" constant="40" id="H3v-pJ-sQT"/>
                             <constraint firstItem="fOg-Gq-U8f" firstAttribute="leading" secondItem="b5O-J4-5b8" secondAttribute="leading" id="Tin-mP-2VE"/>
-                            <constraint firstAttribute="bottom" secondItem="fOg-Gq-U8f" secondAttribute="bottom" id="XNw-0x-KDK"/>
+                            <constraint firstItem="S8j-aj-nXB" firstAttribute="leading" secondItem="ZNJ-75-pSC" secondAttribute="leading" id="UuY-fE-htT"/>
+                            <constraint firstItem="a0O-Rd-4vG" firstAttribute="centerY" secondItem="b5O-J4-5b8" secondAttribute="centerY" constant="-20" id="VPx-nB-4IM"/>
+                            <constraint firstItem="S8j-aj-nXB" firstAttribute="bottom" secondItem="ZNJ-75-pSC" secondAttribute="bottom" id="cog-Zz-l73"/>
+                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="bottom" secondItem="Wtc-hU-TQi" secondAttribute="bottom" constant="80" id="mp4-fh-AJj"/>
+                            <constraint firstItem="Wtc-hU-TQi" firstAttribute="leading" secondItem="ZNJ-75-pSC" secondAttribute="leading" constant="40" id="nB1-qK-Hpm"/>
+                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="S8j-aj-nXB" secondAttribute="trailing" id="ogu-yL-8nB"/>
+                            <constraint firstItem="a0O-Rd-4vG" firstAttribute="centerX" secondItem="b5O-J4-5b8" secondAttribute="centerX" id="yje-2t-2F6"/>
                             <constraint firstItem="fOg-Gq-U8f" firstAttribute="top" secondItem="b5O-J4-5b8" secondAttribute="top" id="zbx-xd-tnc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZNJ-75-pSC"/>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="S8j-aj-nXB" id="riv-wQ-kh5"/>
                         <outlet property="mapView" destination="fOg-Gq-U8f" id="hWA-Ju-xYa"/>
+                        <outlet property="matchingButton" destination="Wtc-hU-TQi" id="WNt-RV-7ji"/>
                         <outlet property="signOutButton" destination="XTU-Ld-Tqw" id="GQx-t1-h3e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Jf-5q-1PI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3300" y="380"/>
+            <point key="canvasLocation" x="3300.0000000000005" y="379.6875"/>
         </scene>
         <!--Driver Sign Up View Controller-->
         <scene sceneID="BCF-Ma-E7t">
@@ -545,6 +582,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="pin" width="512" height="512"/>
         <image name="sjsu_logo.png" width="1000" height="573"/>
     </resources>
 </document>
