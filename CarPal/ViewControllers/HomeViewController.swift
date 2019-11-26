@@ -16,6 +16,8 @@ class HomeViewController: UIViewController{
     @IBOutlet weak var signOutButton: UIButton!
     @IBOutlet weak var matchingButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var enterButton: UIButton!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -23,6 +25,7 @@ class HomeViewController: UIViewController{
     let locationManager = CLLocationManager()
     let regionInMeter: Double = 10000
     var previousLocation: CLLocation?
+    var directionsArray = [MKDirections]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +37,65 @@ class HomeViewController: UIViewController{
         setUpElement()
         signOutButton.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         signOutButton.layer.cornerRadius = 15.0
-        signOutButton.tintColor = UIColor.white
+        signOutButton.tintColor = UIColor.black
+    }
+    
+    @IBAction func enterButtonTapped(_ sender: Any) {
+        getAddress()
     }
     
     @IBAction func matchButtonTapped(_ sender: Any) {
         
     }
     
-    private func getAsdress(){
+    
+    func getAddress() {
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(addressTextField.text!) { (placemarks, error) in
+            guard let placemakrs = placemarks, let location = placemarks?.first?.location
+                else {
+                    print("No location found!")
+                    return
+            }
+            self.mapThis(destinationCord: location.coordinate)
+        }
+    }
+
+    func mapThis(destinationCord: CLLocationCoordinate2D) {
+        let sourceCordinate = locationManager.location?.coordinate
         
+        let sourcePlacemark = MKPlacemark(coordinate: sourceCordinate!)
+        let destPlacemark = MKPlacemark(coordinate: destinationCord)
+        
+        let sourceItem = MKMapItem (placemark: sourcePlacemark)
+        let destItem = MKMapItem(placemark: destPlacemark)
+        
+        let destinationRequest = MKDirections.Request()
+        destinationRequest.source = sourceItem
+        destinationRequest.destination = destItem
+        destinationRequest.transportType = .automobile
+        destinationRequest.requestsAlternateRoutes = true
+        
+        let direction = MKDirections(request: destinationRequest)
+        direction.calculate{ (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("Something is wrong!")
+                }
+                return
+            }
+            let route = response.routes[0]
+            self.mapView.addOverlay(route.polyline)
+            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+        }
+        resetMapView(withNew: direction)
+            
+    }
+    
+    func resetMapView (withNew directions: MKDirections) {
+        mapView.removeOverlays(mapView.overlays)
+        directionsArray.append(directions)
+        let _ = directionsArray.map {$0.cancel()}
     }
     
     @IBAction func signOutTapped(_ sender: Any) {
@@ -103,6 +156,7 @@ class HomeViewController: UIViewController{
     
     private func setUpElement(){
         Utilities.styleFilledButton(matchingButton)
+        Utilities.styleFilledButton(enterButton)
     }
     
     func getCenterLocation(for mapView: MKMapView) -> CLLocation {
@@ -125,6 +179,15 @@ extension HomeViewController: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAutorization()
     }
+    
+    
+
+    func mapView (_ mapview: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let render = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        render.strokeColor = .blue
+        return render
+    }
+
     
 }
 
@@ -155,5 +218,13 @@ extension HomeViewController: MKMapViewDelegate {
                 self.addressLabel.text = "\(streetNumber) \(streetName)"
             }
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, renderFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        
+        renderer.strokeColor = .blue
+        
+        return renderer
     }
 }
