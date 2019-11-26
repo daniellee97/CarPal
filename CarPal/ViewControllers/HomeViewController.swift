@@ -77,6 +77,7 @@ class HomeViewController: UIViewController{
         destinationRequest.requestsAlternateRoutes = true
         
         let direction = MKDirections(request: destinationRequest)
+        resetMapView(withNew: direction)
         direction.calculate{ (response, error) in
             guard let response = response else {
                 if let error = error {
@@ -88,7 +89,7 @@ class HomeViewController: UIViewController{
             self.mapView.addOverlay(route.polyline)
             self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
         }
-        resetMapView(withNew: direction)
+        
             
     }
     
