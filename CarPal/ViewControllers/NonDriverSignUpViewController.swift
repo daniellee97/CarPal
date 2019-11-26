@@ -108,7 +108,7 @@ class NonDriverSignUpViewController: UIViewController {
                 }
             }
             // transition to the main screen
-            transitionToMainPage()
+            transitionToFisrtPage()
         }
     }
     
@@ -117,9 +117,9 @@ class NonDriverSignUpViewController: UIViewController {
         errorLabel.alpha = 1
     }
     
-    private func transitionToMainPage() {
-        let homeViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.HomeViewController) as? HomeViewController
-        view.window?.rootViewController = homeViewController
+    private func transitionToFisrtPage() {
+        let firstPageController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.FirstPageController) as? ViewController
+        view.window?.rootViewController = firstPageController
         view.window?.makeKeyAndVisible()
     }
 

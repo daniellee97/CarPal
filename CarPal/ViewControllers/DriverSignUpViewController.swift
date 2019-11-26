@@ -50,6 +50,7 @@ class DriverSignUpViewController: UIViewController{
         Utilities.styleTextField(availableSeatsTextField)
         Utilities.styleTextField(emailTextField)
         Utilities.styleTextField(passwordTextField)
+        Utilities.styleFilledButton(signUpButton)
     }
     
     // display error
@@ -111,14 +112,14 @@ class DriverSignUpViewController: UIViewController{
                 }
             }
             // transition to the main screen
-            transitionToMainPage()
+            transitionToFisrtPage()
         }
     
     }
     
-    private func transitionToMainPage() {
-        let homeViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.HomeViewController) as? HomeViewController
-        view.window?.rootViewController = homeViewController
+    private func transitionToFisrtPage() {
+        let FirstPageController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.FirstPageController) as? ViewController
+        view.window?.rootViewController = FirstPageController
         view.window?.makeKeyAndVisible()
     }
 

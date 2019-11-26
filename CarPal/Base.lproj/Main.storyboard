@@ -417,7 +417,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="vdJ-Pm-vBH">
-                                <rect key="frame" x="40" y="128" width="295" height="726.66666666666663"/>
+                                <rect key="frame" x="40" y="98" width="295" height="726.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create an Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ey-dZ-Ut6">
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="26.333333333333332"/>
@@ -471,7 +471,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Vehicle Plate Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xam-Na-oLc">
-                                        <rect key="frame" x="0.0" y="406.33333333333337" width="295" height="40"/>
+                                        <rect key="frame" x="0.0" y="406.33333333333331" width="295" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="5ds-pm-IFe"/>
                                         </constraints>
@@ -521,7 +521,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="vdJ-Pm-vBH" firstAttribute="top" secondItem="rR2-sJ-Kjw" secondAttribute="top" constant="40" id="Jvg-c3-YWh"/>
+                            <constraint firstItem="vdJ-Pm-vBH" firstAttribute="top" secondItem="rR2-sJ-Kjw" secondAttribute="top" constant="10" id="Jvg-c3-YWh"/>
                             <constraint firstItem="vdJ-Pm-vBH" firstAttribute="leading" secondItem="rR2-sJ-Kjw" secondAttribute="leading" constant="40" id="Xeo-uC-WsA"/>
                             <constraint firstItem="rR2-sJ-Kjw" firstAttribute="trailing" secondItem="vdJ-Pm-vBH" secondAttribute="trailing" constant="40" id="raG-bH-dn2"/>
                         </constraints>
