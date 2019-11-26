@@ -25,7 +25,8 @@
 		837321072337497D005CFBF6 /* NonDriverSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837321062337497D005CFBF6 /* NonDriverSignUpViewController.swift */; };
 		8373210923374ECA005CFBF6 /* DriverSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8373210823374ECA005CFBF6 /* DriverSignUpViewController.swift */; };
 		837321132338CD72005CFBF6 /* SignUpOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837321122338CD72005CFBF6 /* SignUpOptionViewController.swift */; };
-		83A3212B238CB8AD0078B3A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83A3212A238CB8AD0078B3A8 /* GoogleService-Info.plist */; };
+		83A32127238B3AAF0078B3A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83A32126238B3AAF0078B3A8 /* GoogleService-Info.plist */; };
+		83A32129238B55CB0078B3A8 /* AfterMatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A32128238B55CB0078B3A8 /* AfterMatchingViewController.swift */; };
 		83CA66F423308675004A2DD4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA66F323308675004A2DD4 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +74,8 @@
 		837321062337497D005CFBF6 /* NonDriverSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonDriverSignUpViewController.swift; sourceTree = "<group>"; };
 		8373210823374ECA005CFBF6 /* DriverSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSignUpViewController.swift; sourceTree = "<group>"; };
 		837321122338CD72005CFBF6 /* SignUpOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpOptionViewController.swift; sourceTree = "<group>"; };
-		83A3212A238CB8AD0078B3A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		83A32126238B3AAF0078B3A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		83A32128238B55CB0078B3A8 /* AfterMatchingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterMatchingViewController.swift; sourceTree = "<group>"; };
 		83CA66F323308675004A2DD4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		9CA0FC9BAC2CF2CE811F841F /* Pods-CarPal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarPal.release.xcconfig"; path = "Target Support Files/Pods-CarPal/Pods-CarPal.release.xcconfig"; sourceTree = "<group>"; };
 		C32BC9D68331563958A41591 /* Pods-CarPal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarPal.debug.xcconfig"; path = "Target Support Files/Pods-CarPal/Pods-CarPal.debug.xcconfig"; sourceTree = "<group>"; };
@@ -158,7 +160,7 @@
 				83CA66F52330898C004A2DD4 /* Helper */,
 				834DF94623304805002F0B4C /* LaunchScreen.storyboard */,
 				834DF94923304805002F0B4C /* Info.plist */,
-				83A3212A238CB8AD0078B3A8 /* GoogleService-Info.plist */,
+				83A32126238B3AAF0078B3A8 /* GoogleService-Info.plist */,
 				834DF94123304804002F0B4C /* CarPal.xcdatamodeld */,
 				834BAD912331CE8B0006BC23 /* Photos */,
 			);
@@ -192,6 +194,7 @@
 				837321062337497D005CFBF6 /* NonDriverSignUpViewController.swift */,
 				8373210823374ECA005CFBF6 /* DriverSignUpViewController.swift */,
 				837321122338CD72005CFBF6 /* SignUpOptionViewController.swift */,
+				83A32128238B55CB0078B3A8 /* AfterMatchingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -337,9 +340,9 @@
 			files = (
 				834DF94823304805002F0B4C /* LaunchScreen.storyboard in Resources */,
 				834BAD932331CE9F0006BC23 /* sjsu_logo.png in Resources */,
-				83A3212B238CB8AD0078B3A8 /* GoogleService-Info.plist in Resources */,
 				834DF94523304805002F0B4C /* Assets.xcassets in Resources */,
 				834DF94023304804002F0B4C /* Main.storyboard in Resources */,
+				83A32127238B3AAF0078B3A8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +453,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A32129238B55CB0078B3A8 /* AfterMatchingViewController.swift in Sources */,
 				834DF96E233048EA002F0B4C /* HomeViewController.swift in Sources */,
 				834DF93D23304804002F0B4C /* ViewController.swift in Sources */,
 				837321072337497D005CFBF6 /* NonDriverSignUpViewController.swift in Sources */,

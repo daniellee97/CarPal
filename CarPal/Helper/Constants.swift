@@ -14,5 +14,6 @@ struct Constants {
         
         static let HomeViewController = "HomeVC"
         static let FirstPageController = "VC"
+        static let AfterMatchingViewController = "AfterMatchingVC"
     }
 }
