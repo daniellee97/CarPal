@@ -17,7 +17,6 @@ class HomeViewController: UIViewController{
     @IBOutlet weak var matchingButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var addressTextField: UITextField!
-    @IBOutlet weak var enterButton: UIButton!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -26,6 +25,9 @@ class HomeViewController: UIViewController{
     let regionInMeter: Double = 10000
     var previousLocation: CLLocation?
     var directionsArray = [MKDirections]()
+    
+    let db = Firestore.firestore()
+    let currentUid = Auth.auth().currentUser!.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,18 +42,52 @@ class HomeViewController: UIViewController{
         signOutButton.tintColor = UIColor.black
     }
     
-    @IBAction func enterButtonTapped(_ sender: Any) {
-        getAddress()
-    }
-    
     @IBAction func matchButtonTapped(_ sender: Any) {
-        
+        getAddress(address: addressTextField.text!)
+        print("home address is \(getHomeAddressOfCurrentUser())")
     }
     
+    private func getHomeAddressOfCurrentUser() -> String{
+        var currentUserAddress = ""
+        db.collection("riders").whereField("uid", isEqualTo: currentUid).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting Document")
+            } else {
+                let doc = querySnapshot!.documents[0]
+                let documentId = doc.documentID
+                let addressRef = self.db.collection("users").document(documentId)
+                addressRef.getDocument { (snapshot, err) in
+                    if let err = err {
+                        print("Error occured")
+                    } else {
+                        let address = snapshot!.get("address") as! String
+                        currentUserAddress = address
+                    }
+                }
+            }
+        }
+        return currentUserAddress
+    }
     
-    func getAddress() {
+    private func getClosestDriver () {
+        var shortestETA:Double = -1
+        db.collection("drivers").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting Document")
+            } else {
+                let documents = querySnapshot!.documents
+                for document in documents {
+                    let address = document.get("address") as! String
+                    
+                }
+            }
+        }
+    }
+    
+    // get the address from the address text field
+    private func getAddress(address: String) {
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(addressTextField.text!) { (placemarks, error) in
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemakrs = placemarks, let location = placemarks?.first?.location
                 else {
                     print("No location found!")
@@ -61,7 +97,8 @@ class HomeViewController: UIViewController{
         }
     }
 
-    func mapThis(destinationCord: CLLocationCoordinate2D) {
+    // calculate the route and display on the map view
+    private func mapThis(destinationCord: CLLocationCoordinate2D){
         let sourceCordinate = locationManager.location?.coordinate
         
         let sourcePlacemark = MKPlacemark(coordinate: sourceCordinate!)
@@ -81,7 +118,7 @@ class HomeViewController: UIViewController{
         direction.calculate{ (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("Something is wrong!")
+                    print("Something is wrong! \(error)")
                 }
                 return
             }
@@ -90,9 +127,37 @@ class HomeViewController: UIViewController{
             self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
         }
         
-            
     }
     
+    // calculate and return the eta of the route
+    func getETA (startingCord: CLLocationCoordinate2D, destinationCord: CLLocationCoordinate2D) -> Double {
+        
+        let sourcePlacemark = MKPlacemark(coordinate: startingCord)
+        let destPlacemark = MKPlacemark(coordinate: destinationCord)
+        
+        let sourceItem = MKMapItem (placemark: sourcePlacemark)
+        let destItem = MKMapItem(placemark: destPlacemark)
+        
+        let destinationRequest = MKDirections.Request()
+        destinationRequest.source = sourceItem
+        destinationRequest.destination = destItem
+        destinationRequest.transportType = .automobile
+        destinationRequest.requestsAlternateRoutes = true
+        
+        var ETAInMin:Double = 0
+        
+        let direction = MKDirections(request: destinationRequest)
+        resetMapView(withNew: direction)
+        direction.calculate { response, error in
+            guard error == nil, let response = response else {return}
+            let route = response.routes[0]
+            ETAInMin = route.expectedTravelTime/60
+        }
+
+        return ETAInMin
+    }
+    
+    //reset mapview every time when user types different address
     func resetMapView (withNew directions: MKDirections) {
         mapView.removeOverlays(mapView.overlays)
         directionsArray.append(directions)
@@ -103,6 +168,7 @@ class HomeViewController: UIViewController{
         transitionToFirstPage()
     }
     
+    // transition to first screen
     private func transitionToFirstPage(){
         let firstController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.FirstPageController) as? ViewController
         view.window?.rootViewController = firstController
@@ -115,6 +181,7 @@ class HomeViewController: UIViewController{
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
+    // check the location service
     private func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled(){
             setUpLocationManager()
@@ -125,6 +192,7 @@ class HomeViewController: UIViewController{
         }
     }
     
+    // make the map view always center to the user's location
     func centerViewOnUserLocation () {
         if let location = locationManager.location?.coordinate{
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeter, longitudinalMeters: regionInMeter)
@@ -148,6 +216,7 @@ class HomeViewController: UIViewController{
         }
     }
     
+    // track the user's location
     func startTrackingUserLocation(){
         mapView.showsUserLocation = true
         centerViewOnUserLocation()
@@ -157,9 +226,9 @@ class HomeViewController: UIViewController{
     
     private func setUpElement(){
         Utilities.styleFilledButton(matchingButton)
-        Utilities.styleFilledButton(enterButton)
     }
     
+    // get the location of the center of the screen
     func getCenterLocation(for mapView: MKMapView) -> CLLocation {
         let latitude = mapView.centerCoordinate.latitude
         let longitude = mapView.centerCoordinate.longitude
@@ -228,4 +297,6 @@ extension HomeViewController: MKMapViewDelegate {
         
         return renderer
     }
+    
+    
 }

@@ -98,7 +98,7 @@ class NonDriverSignUpViewController: UIViewController {
                 } else {
                     //User was created
                     let db = Firestore.firestore()
-                    db.collection("riders").addDocument(data: ["first_name": firstName, "last_name": lastName, "SJSUID": SJSUID, "address": address, "city": city, "zipcode": zipcode, "uid": result!.user.uid]) { (error) in
+                    db.collection("riders").addDocument(data: ["email": email, "password": password, "first_name": firstName, "last_name": lastName, "SJSUID": SJSUID, "address": address, "city": city, "zipcode": zipcode, "uid": result!.user.uid]) { (error) in
                         if error != nil {
                             
                             //show error
