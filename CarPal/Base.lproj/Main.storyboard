@@ -349,56 +349,55 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Ri2-89-32a">
-                                <rect key="frame" x="40" y="104" width="295" height="40"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the destination" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="brC-vl-3hy">
-                                        <rect key="frame" x="0.0" y="0.0" width="205" height="40"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJg-XW-9Oe">
-                                        <rect key="frame" x="245" y="0.0" width="50" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="oFU-g3-4lX"/>
-                                        </constraints>
-                                        <state key="normal" title="Enter"/>
-                                        <connections>
-                                            <action selector="enterButtonTapped:" destination="C8i-Ot-5mk" eventType="touchUpInside" id="fWt-Qg-KGf"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the destination and Press Match" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XjR-1a-Pdl">
+                                <rect key="frame" x="40" y="114" width="295" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="F3W-mL-pmH"/>
+                                    <constraint firstAttribute="height" constant="40" id="5Jl-rG-cad"/>
                                 </constraints>
-                            </stackView>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZW-uQ-YSO">
+                                <rect key="frame" x="40" y="608" width="295" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="YZV-O1-kVj"/>
+                                </constraints>
+                                <state key="normal" title="Arrived"/>
+                                <connections>
+                                    <action selector="arrivedButtonTapped:" destination="C8i-Ot-5mk" eventType="touchUpInside" id="Mvd-O4-Ks3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="Ri2-89-32a" secondAttribute="trailing" constant="40" id="3pY-TH-bBW"/>
                             <constraint firstItem="ZNJ-75-pSC" firstAttribute="bottom" secondItem="fOg-Gq-U8f" secondAttribute="bottom" id="BcD-3g-0H7"/>
                             <constraint firstAttribute="trailing" secondItem="fOg-Gq-U8f" secondAttribute="trailing" id="FHK-c2-6QK"/>
+                            <constraint firstItem="WZW-uQ-YSO" firstAttribute="leading" secondItem="ZNJ-75-pSC" secondAttribute="leading" constant="40" id="GXA-XH-xhz"/>
                             <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="Wtc-hU-TQi" secondAttribute="trailing" constant="40" id="H3v-pJ-sQT"/>
-                            <constraint firstItem="Ri2-89-32a" firstAttribute="leading" secondItem="ZNJ-75-pSC" secondAttribute="leading" constant="40" id="Lcn-B3-oSQ"/>
+                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="WZW-uQ-YSO" secondAttribute="trailing" constant="40" id="I5f-kD-CCm"/>
                             <constraint firstItem="fOg-Gq-U8f" firstAttribute="leading" secondItem="b5O-J4-5b8" secondAttribute="leading" id="Tin-mP-2VE"/>
                             <constraint firstItem="S8j-aj-nXB" firstAttribute="leading" secondItem="ZNJ-75-pSC" secondAttribute="leading" id="UuY-fE-htT"/>
                             <constraint firstItem="a0O-Rd-4vG" firstAttribute="centerY" secondItem="b5O-J4-5b8" secondAttribute="centerY" constant="-20" id="VPx-nB-4IM"/>
+                            <constraint firstItem="Wtc-hU-TQi" firstAttribute="top" secondItem="WZW-uQ-YSO" secondAttribute="bottom" constant="10" id="bkH-LB-JsW"/>
                             <constraint firstItem="S8j-aj-nXB" firstAttribute="bottom" secondItem="ZNJ-75-pSC" secondAttribute="bottom" id="cog-Zz-l73"/>
                             <constraint firstItem="XTU-Ld-Tqw" firstAttribute="top" secondItem="ZNJ-75-pSC" secondAttribute="top" id="gnq-ga-3vh"/>
                             <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="XTU-Ld-Tqw" secondAttribute="trailing" constant="20" id="hgM-0l-0im"/>
+                            <constraint firstItem="XjR-1a-Pdl" firstAttribute="top" secondItem="ZNJ-75-pSC" secondAttribute="top" constant="70" id="iSd-VA-h9r"/>
+                            <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="XjR-1a-Pdl" secondAttribute="trailing" constant="40" id="ked-mo-UTc"/>
                             <constraint firstItem="ZNJ-75-pSC" firstAttribute="bottom" secondItem="Wtc-hU-TQi" secondAttribute="bottom" constant="80" id="mp4-fh-AJj"/>
                             <constraint firstItem="Wtc-hU-TQi" firstAttribute="leading" secondItem="ZNJ-75-pSC" secondAttribute="leading" constant="40" id="nB1-qK-Hpm"/>
                             <constraint firstItem="ZNJ-75-pSC" firstAttribute="trailing" secondItem="S8j-aj-nXB" secondAttribute="trailing" id="ogu-yL-8nB"/>
-                            <constraint firstItem="Ri2-89-32a" firstAttribute="top" secondItem="ZNJ-75-pSC" secondAttribute="top" constant="60" id="yKV-3A-pmu"/>
+                            <constraint firstItem="XjR-1a-Pdl" firstAttribute="leading" secondItem="ZNJ-75-pSC" secondAttribute="leading" constant="40" id="t2c-tX-GUm"/>
                             <constraint firstItem="a0O-Rd-4vG" firstAttribute="centerX" secondItem="b5O-J4-5b8" secondAttribute="centerX" id="yje-2t-2F6"/>
                             <constraint firstItem="fOg-Gq-U8f" firstAttribute="top" secondItem="b5O-J4-5b8" secondAttribute="top" id="zbx-xd-tnc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZNJ-75-pSC"/>
                     </view>
+                    <navigationItem key="navigationItem" id="MR3-MW-fu7"/>
                     <connections>
                         <outlet property="addressLabel" destination="S8j-aj-nXB" id="riv-wQ-kh5"/>
-                        <outlet property="addressTextField" destination="brC-vl-3hy" id="ZMJ-3Y-hzS"/>
-                        <outlet property="enterButton" destination="lJg-XW-9Oe" id="YBt-Wp-Ip4"/>
+                        <outlet property="addressTextField" destination="XjR-1a-Pdl" id="eIf-wb-dwz"/>
+                        <outlet property="arrivedButton" destination="WZW-uQ-YSO" id="oL8-1J-wAu"/>
                         <outlet property="mapView" destination="fOg-Gq-U8f" id="hWA-Ju-xYa"/>
                         <outlet property="matchingButton" destination="Wtc-hU-TQi" id="WNt-RV-7ji"/>
                         <outlet property="signOutButton" destination="XTU-Ld-Tqw" id="GQx-t1-h3e"/>
@@ -643,9 +642,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Od8-qZ-gJu"/>
                                 </constraints>
-                                <state key="normal" title="Get Direction"/>
+                                <state key="normal" title="Arrived"/>
                                 <connections>
-                                    <action selector="getDirectionButtonTapped:" destination="geT-pP-0qf" eventType="touchUpInside" id="bee-Xm-wOx"/>
+                                    <action selector="arrivedButtonTapped:" destination="geT-pP-0qf" eventType="touchUpInside" id="bee-Xm-wOx"/>
                                     <action selector="matchButtonTapped:" destination="geT-pP-0qf" eventType="touchUpInside" id="gk8-Fa-bWB"/>
                                 </connections>
                             </button>
@@ -687,9 +686,9 @@
                         <viewLayoutGuide key="safeArea" id="Lza-n0-wdA"/>
                     </view>
                     <connections>
-                        <outlet property="addressLabel" destination="znl-DY-zT2" id="2F0-be-YpX"/>
-                        <outlet property="getDirectionButton" destination="SQ7-tK-bI1" id="ldb-GI-tPJ"/>
-                        <outlet property="mapView" destination="7gm-A7-JTZ" id="Ncq-q3-MAy"/>
+                        <outlet property="addressLabel" destination="znl-DY-zT2" id="sM2-Qm-kBd"/>
+                        <outlet property="arrivedButton" destination="SQ7-tK-bI1" id="ldb-GI-tPJ"/>
+                        <outlet property="mapView" destination="7gm-A7-JTZ" id="Q5l-vJ-dSt"/>
                         <outlet property="matchingButton" destination="SQ7-tK-bI1" id="xDb-le-Gjw"/>
                         <outlet property="signOutButton" destination="bbS-X8-z8w" id="z2A-1l-CBA"/>
                     </connections>

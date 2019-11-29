@@ -50,6 +50,7 @@ class SignInViewController: UIViewController {
         view.window?.makeKeyAndVisible()
     }
     
+    
     /* checks the fields and validate that the data is correct.
      If everything is correct, then it will return nil. Otherwise, it returns the error messages*/
     private func validateField() -> String?{

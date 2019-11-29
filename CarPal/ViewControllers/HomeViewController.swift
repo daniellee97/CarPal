@@ -17,7 +17,8 @@ class HomeViewController: UIViewController{
     @IBOutlet weak var matchingButton: UIButton!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var addressTextField: UITextField!
-    @IBOutlet weak var enterButton: UIButton!
+    @IBOutlet weak var arrivedButton: UIButton!
+    
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -27,31 +28,133 @@ class HomeViewController: UIViewController{
     var previousLocation: CLLocation?
     var directionsArray = [MKDirections]()
     
+    var currentUserAddress = String()
+    var driver = Driver(first_name: "", last_name: "",plate_number: "", uid: "")
+    
+    
+    
+    let db = Firestore.firestore()
+    let currentUid = Auth.auth().currentUser!.uid
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // check location service
         checkLocationServices()
-
+        
         // Do any additional setup after loading the view.
         setUpElement()
+        mapView.showsTraffic = true
+        arrivedButton.isEnabled = false
+        arrivedButton.isHidden = true
         signOutButton.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         signOutButton.layer.cornerRadius = 15.0
         signOutButton.tintColor = UIColor.black
     }
     
-    @IBAction func enterButtonTapped(_ sender: Any) {
-        getAddress()
+    @IBAction func arrivedButtonTapped(_ sender: Any) {
+        mapThis(destinationCord: locationManager.location!.coordinate)
+        enableMatchingButton()
+        createAlert(title: "Thank You", message: "Thank you for using our app!")
     }
     
+    // action when match button tapped
     @IBAction func matchButtonTapped(_ sender: Any) {
+        getAddress(address: addressTextField.text!)
+        setHomeAddressOfCurrentUser()
+        setClosestDriver()
+        enableArrivedButton()
+        addressTextField.text = ""
+    }
+    
+    // show matching button and enable it, then remove arrived button
+    private func enableMatchingButton(){
+        arrivedButton.isEnabled = false
+        arrivedButton.isHidden = true
+        matchingButton.isEnabled = true
+        matchingButton.isHidden = false
+    }
+    
+    //show arrived button and enable it, then remove matching button
+    private func enableArrivedButton() {
+        arrivedButton.isEnabled = true
+        arrivedButton.isHidden = false
+        matchingButton.isEnabled = false
+        matchingButton.isHidden = true
+    }
+    
+    private func setHomeAddressOfCurrentUser(){
+        self.currentUserAddress = addressTextField.text!
+    }
+    
+    // find the closest rider
+    private func setClosestRider(){
         
     }
     
-    
-    func getAddress() {
+    // find the closest driver
+    private func setClosestDriver () {
+        let limitETA:Double = 5
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(addressTextField.text!) { (placemarks, error) in
+        geoCoder.geocodeAddressString(currentUserAddress) { (placemarks, error) in
+            guard let placemakrs = placemarks, let location = placemarks?.first?.location
+                else {
+                    print("No location found!")
+                    return
+            }
+            let riderCoordinate = location.coordinate
+            self.db.collection("drivers").getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting Document")
+                } else {
+                    let documents = querySnapshot!.documents
+                    for document in documents {
+                        // get address
+                        let address = document.get("address") as! String
+                        
+                        //get coordinate of driver's home location
+                        let geoCoder = CLGeocoder()
+                        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+                            guard let placemakrs = placemarks, let location = placemarks?.first?.location
+                                else {
+                                    print("No location found!")
+                                    return
+                            }
+                            let driverCoordinate = location.coordinate
+                            let first_name = document.get("first_name") as! String
+                            let last_name = document.get("last_name") as! String
+                            let uid = document.get("uid") as! String
+                            let plate_number = document.get("vehicle_plate_number") as! String
+                            self.getETA(startingCord: driverCoordinate, destinationCord: riderCoordinate, firstName: first_name, lastName: last_name, plateNumber: plate_number, uid: uid)
+                        }
+                    }
+                    // self.createAlert(title: "MATCH FAILED!", message: "No available Drivers")
+                }
+            }
+        }
+    }
+    
+    private func setDriverInfo(first_name:String, last_name:String, uid:String, plate_number:String) {
+        self.driver.first_name = first_name
+        self.driver.last_name = last_name
+        self.driver.uid = uid
+        self.driver.plate_number = plate_number
+        
+    }
+    
+    // create popup message
+    private func createAlert (title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action) in
+            alert.dismiss(animated: true, completion:nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // get the address from the address text field
+    private func getAddress(address: String) {
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemakrs = placemarks, let location = placemarks?.first?.location
                 else {
                     print("No location found!")
@@ -60,12 +163,11 @@ class HomeViewController: UIViewController{
             self.mapThis(destinationCord: location.coordinate)
         }
     }
-
-    func mapThis(destinationCord: CLLocationCoordinate2D) {
-        let sourceCordinate = locationManager.location?.coordinate
-        
-        let sourcePlacemark = MKPlacemark(coordinate: sourceCordinate!)
-        let destPlacemark = MKPlacemark(coordinate: destinationCord)
+    
+    // get MKDirections.request()
+    private func getRequest(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> MKDirections.Request{
+        let sourcePlacemark = MKPlacemark(coordinate: from)
+        let destPlacemark = MKPlacemark(coordinate: to)
         
         let sourceItem = MKMapItem (placemark: sourcePlacemark)
         let destItem = MKMapItem(placemark: destPlacemark)
@@ -76,12 +178,19 @@ class HomeViewController: UIViewController{
         destinationRequest.transportType = .automobile
         destinationRequest.requestsAlternateRoutes = true
         
+        return destinationRequest
+    }
+
+    // calculate the route and display on the map view
+    private func mapThis(destinationCord: CLLocationCoordinate2D){
+        let destinationRequest = getRequest(from: locationManager.location!.coordinate, to: destinationCord)
+        
         let direction = MKDirections(request: destinationRequest)
         resetMapView(withNew: direction)
         direction.calculate{ (response, error) in
             guard let response = response else {
                 if let error = error {
-                    print("Something is wrong!")
+                    print("Something is wrong! \(error)")
                 }
                 return
             }
@@ -90,9 +199,29 @@ class HomeViewController: UIViewController{
             self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
         }
         
-            
     }
     
+    
+    // calculate and return the eta of the route
+    func getETA (startingCord: CLLocationCoordinate2D, destinationCord: CLLocationCoordinate2D, firstName:String, lastName:String, plateNumber:String, uid:String){
+        var ETAInMin:Double = 0
+        let destinationRequest = getRequest(from: startingCord, to: destinationCord)
+        
+        let direction = MKDirections(request: destinationRequest)
+        direction.calculate { response, error in
+            guard error == nil, let response = response else {return}
+            let route = response.routes[0]
+            ETAInMin = route.expectedTravelTime/60
+            if ETAInMin < 10 {
+                print("it will take \(ETAInMin)")
+                self.setDriverInfo(first_name: firstName, last_name: lastName, uid: uid, plate_number: plateNumber)
+                self.createAlert(title: "MATCHED!", message: "Driver is: \(self.driver.first_name) \(self.driver.last_name)\n Plate number is: \(self.driver.plate_number)\n Meeting point: Infront of the Student Union")
+            }
+        }
+
+    }
+    
+    //reset mapview every time when user types different address
     func resetMapView (withNew directions: MKDirections) {
         mapView.removeOverlays(mapView.overlays)
         directionsArray.append(directions)
@@ -103,6 +232,7 @@ class HomeViewController: UIViewController{
         transitionToFirstPage()
     }
     
+    // transition to first screen
     private func transitionToFirstPage(){
         let firstController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.FirstPageController) as? ViewController
         view.window?.rootViewController = firstController
@@ -115,6 +245,7 @@ class HomeViewController: UIViewController{
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
+    // check the location service
     private func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled(){
             setUpLocationManager()
@@ -125,6 +256,7 @@ class HomeViewController: UIViewController{
         }
     }
     
+    // make the map view always center to the user's location
     func centerViewOnUserLocation () {
         if let location = locationManager.location?.coordinate{
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeter, longitudinalMeters: regionInMeter)
@@ -148,6 +280,7 @@ class HomeViewController: UIViewController{
         }
     }
     
+    // track the user's location
     func startTrackingUserLocation(){
         mapView.showsUserLocation = true
         centerViewOnUserLocation()
@@ -157,9 +290,10 @@ class HomeViewController: UIViewController{
     
     private func setUpElement(){
         Utilities.styleFilledButton(matchingButton)
-        Utilities.styleFilledButton(enterButton)
+        Utilities.styleFilledButton(arrivedButton)
     }
     
+    // get the location of the center of the screen
     func getCenterLocation(for mapView: MKMapView) -> CLLocation {
         let latitude = mapView.centerCoordinate.latitude
         let longitude = mapView.centerCoordinate.longitude
@@ -188,9 +322,9 @@ extension HomeViewController: CLLocationManagerDelegate{
         render.strokeColor = .blue
         return render
     }
-
     
 }
+
 
 extension HomeViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
