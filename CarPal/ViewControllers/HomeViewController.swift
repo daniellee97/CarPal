@@ -29,6 +29,7 @@ class HomeViewController: UIViewController{
     var directionsArray = [MKDirections]()
     
     var currentUserAddress = String()
+    var currentUserName = String()
     var driver = Driver(first_name: "", last_name: "",plate_number: "", uid: "")
     
     
@@ -63,7 +64,7 @@ class HomeViewController: UIViewController{
         getAddress(address: addressTextField.text!)
         setHomeAddressOfCurrentUser()
         setClosestDriver()
-        enableArrivedButton()
+        
         addressTextField.text = ""
     }
     
@@ -128,7 +129,6 @@ class HomeViewController: UIViewController{
                             self.getETA(startingCord: driverCoordinate, destinationCord: riderCoordinate, firstName: first_name, lastName: last_name, plateNumber: plate_number, uid: uid)
                         }
                     }
-                    // self.createAlert(title: "MATCH FAILED!", message: "No available Drivers")
                 }
             }
         }
@@ -216,6 +216,13 @@ class HomeViewController: UIViewController{
                 print("it will take \(ETAInMin)")
                 self.setDriverInfo(first_name: firstName, last_name: lastName, uid: uid, plate_number: plateNumber)
                 self.createAlert(title: "MATCHED!", message: "Driver is: \(self.driver.first_name) \(self.driver.last_name)\n Plate number is: \(self.driver.plate_number)\n Meeting point: Infront of the Student Union")
+                
+                // enable arrived button
+                self.enableArrivedButton()
+            } else {
+                // create pop up menu with match failed message
+                self.createAlert(title: "MATCH FAILED!", message: "No available Drivers")
+                
             }
         }
 
