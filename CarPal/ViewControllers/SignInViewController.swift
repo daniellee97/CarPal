@@ -34,7 +34,7 @@ class SignInViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error != nil{
                 // fail signing in
-                self.errorLabel.text = error!.localizedDescription
+                self.errorLabel.text = "You need to sign up first or Wrong password"
                 self.errorLabel.alpha = 1
             } else {
                 self.transitionToMainPage()

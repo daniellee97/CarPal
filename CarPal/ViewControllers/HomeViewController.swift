@@ -215,7 +215,7 @@ class HomeViewController: UIViewController{
             if ETAInMin < 10 {
                 print("it will take \(ETAInMin)")
                 self.setDriverInfo(first_name: firstName, last_name: lastName, uid: uid, plate_number: plateNumber)
-                self.createAlert(title: "MATCHED!", message: "Driver is: \(self.driver.first_name) \(self.driver.last_name)\n Plate number is: \(self.driver.plate_number)\n Meeting point: Infront of the Student Union")
+                self.createAlert(title: "MATCHED!", message: "Driver is: \(self.driver.first_name) \(self.driver.last_name)\n Plate number is: \(self.driver.plate_number)\n Meeting point: In front of the Student Union")
                 
                 // enable arrived button
                 self.enableArrivedButton()
