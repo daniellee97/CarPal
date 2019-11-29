@@ -477,7 +477,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="# of available seats" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U0U-K6-Bv1">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Venmo ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U0U-K6-Bv1">
                                         <rect key="frame" x="0.0" y="426.33333333333337" width="295" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="rV9-iz-tmR"/>
@@ -530,7 +530,6 @@
                     <connections>
                         <outlet property="SJSUIDTextField" destination="8b0-mO-1ae" id="XKT-EC-YBn"/>
                         <outlet property="addressTextField" destination="fvZ-M4-Syp" id="Swf-dY-lMp"/>
-                        <outlet property="availableSeatsTextField" destination="U0U-K6-Bv1" id="71M-o4-xxf"/>
                         <outlet property="cityTextField" destination="FER-sV-3va" id="WEj-Na-1r0"/>
                         <outlet property="emailTextField" destination="77j-I4-A97" id="Tvl-6p-Je5"/>
                         <outlet property="errorLabel" destination="bTf-Uu-DxE" id="XJw-nd-bCm"/>
@@ -539,6 +538,7 @@
                         <outlet property="passwordTextField" destination="Ljb-ET-a9N" id="J3q-y9-F7q"/>
                         <outlet property="plateNumberTextField" destination="xam-Na-oLc" id="XJc-Wz-tAi"/>
                         <outlet property="signUpButton" destination="BP4-DI-l2X" id="Ufd-Ba-dD5"/>
+                        <outlet property="venmoID" destination="U0U-K6-Bv1" id="71M-o4-xxf"/>
                         <outlet property="zipcodeTextField" destination="yR3-d3-rVv" id="r7M-mE-b8d"/>
                     </connections>
                 </viewController>

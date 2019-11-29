@@ -30,7 +30,7 @@ class HomeViewController: UIViewController{
     
     var currentUserAddress = String()
     var currentUserName = String()
-    var driver = Driver(first_name: "", last_name: "",plate_number: "", uid: "")
+    var driver = Driver(first_name: "", last_name: "",plate_number: "", uid: "", venmo_ID: "")
     
     
     
@@ -126,7 +126,8 @@ class HomeViewController: UIViewController{
                             let last_name = document.get("last_name") as! String
                             let uid = document.get("uid") as! String
                             let plate_number = document.get("vehicle_plate_number") as! String
-                            self.getETA(startingCord: driverCoordinate, destinationCord: riderCoordinate, firstName: first_name, lastName: last_name, plateNumber: plate_number, uid: uid)
+                            let venmoID = document.get("venmo") as! String
+                            self.getETA(startingCord: driverCoordinate, destinationCord: riderCoordinate, firstName: first_name, lastName: last_name, plateNumber: plate_number, uid: uid, venmoID: venmoID)
                         }
                     }
                 }
@@ -134,12 +135,12 @@ class HomeViewController: UIViewController{
         }
     }
     
-    private func setDriverInfo(first_name:String, last_name:String, uid:String, plate_number:String) {
+    private func setDriverInfo(first_name:String, last_name:String, uid:String, plate_number:String, venmoID:String) {
         self.driver.first_name = first_name
         self.driver.last_name = last_name
         self.driver.uid = uid
         self.driver.plate_number = plate_number
-        
+        self.driver.venmo_ID = venmoID
     }
     
     // create popup message
@@ -203,7 +204,7 @@ class HomeViewController: UIViewController{
     
     
     // calculate and return the eta of the route
-    func getETA (startingCord: CLLocationCoordinate2D, destinationCord: CLLocationCoordinate2D, firstName:String, lastName:String, plateNumber:String, uid:String){
+    func getETA (startingCord: CLLocationCoordinate2D, destinationCord: CLLocationCoordinate2D, firstName:String, lastName:String, plateNumber:String, uid:String, venmoID:String){
         var ETAInMin:Double = 0
         let destinationRequest = getRequest(from: startingCord, to: destinationCord)
         
@@ -214,8 +215,8 @@ class HomeViewController: UIViewController{
             ETAInMin = route.expectedTravelTime/60
             if ETAInMin < 10 {
                 print("it will take \(ETAInMin)")
-                self.setDriverInfo(first_name: firstName, last_name: lastName, uid: uid, plate_number: plateNumber)
-                self.createAlert(title: "MATCHED!", message: "Driver is: \(self.driver.first_name) \(self.driver.last_name)\n Plate number is: \(self.driver.plate_number)\n Meeting point: In front of the Student Union")
+                self.setDriverInfo(first_name: firstName, last_name: lastName, uid: uid, plate_number: plateNumber, venmoID: venmoID)
+                self.createAlert(title: "MATCHED!", message: "Driver is: \(self.driver.first_name) \(self.driver.last_name)\n Plate number is: \(self.driver.plate_number)\n Meeting point: In front of the Student Union \n Venmo ID: \(self.driver.venmo_ID)")
                 
                 // enable arrived button
                 self.enableArrivedButton()

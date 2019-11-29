@@ -13,4 +13,5 @@ struct Driver {
     var last_name:String
     var plate_number:String
     var uid:String
+    var venmo_ID:String
 }
